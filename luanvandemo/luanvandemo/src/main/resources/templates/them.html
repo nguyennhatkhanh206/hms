@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Welcome html default</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<form action="#" th:action="@{/form/xulithem}" th:object="${sinhVien}" >
+	<p>Id <input type="text" /></p>
+	<p>Name<input type="text" th:field="*{name}" /></p>
+	<p>Address <input type="text" th:field="*{address}" /></p>
+	<p><input type="submit" value="Thêm"/><input type="reset" value="Reset" /> </p>
+	</form>
+</body>
+</html>
+
