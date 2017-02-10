@@ -1,0 +1,53 @@
+
+<div class="container-fluid" data-th-fragment="nhanvien">
+	<div class="table-responsive">
+		<!-- Display bookings in a table -->
+		<table class="table table-hover table-striped">
+			<thead>
+				<tr>
+
+					<th>Mã</th>
+					<th>Họ tên</th>
+					<th>Ngày sinh</th>
+					<th>Ngày bắt đầu làm việc</th>
+					<th>Địa chỉ</th>
+					<th>Số điện thoại</th>
+					<th>Mật khẩu</th>
+					<th>Quyền</th>
+					<th>
+
+						<button ng-click="modal('them')" type="button"
+							class="btn btn-primary" data-toggle="modal"
+							data-target="#add-quote-modal" id="btn-add">Thêm</button>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="nv in nhanviens">
+					<td>{{nv.maNV}}</td>
+					<td>{{nv.tenNV}}</td>
+					<td>{{nv.ngaySinhNV | date:"dd/MM/yyyy"}}</td>
+					<td>{{nv.ngayLamNV | date:"dd/MM/yyyy"}}</td>
+					<td>{{nv.diaChiNV}}</td>
+					<td>{{nv.sdtNV}}</td>
+					<td>{{nv.matKhauNV}}</td>
+					<td>{{nv.quyenNV}}</td>
+					<td>
+						<button class="btn btn-default btn-xs btn-detail" id="btn-edit"
+							ng-click="modal('sua',nv.maNV)">Sửa</button>
+						<button class="btn btn-danger btn-xs btn-delete"
+							ng-click="del(nv.maNV)">Xóa</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+
+
+

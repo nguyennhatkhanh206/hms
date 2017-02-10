@@ -1,0 +1,42 @@
+
+<div class="container-fluid" data-th-fragment="phong">
+	<div class="table-responsive">
+
+		<button ng-click="modal('them')" type="button" class="btn btn-primary"
+			data-toggle="modal" data-target="#add-quote-modal" id="btn-add">Add
+			new room</button>
+		<!-- Display bookings in a table -->
+		<table class="table table-hover table-striped">
+			<thead>
+				<tr>
+
+					<th>ID</th>
+					<th>Trạng thái</th>
+					<th>Loại phòng</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="p in phongs">
+					<td>{{p.maP}}</td>
+					<td>{{p.trangThaiP}}</td>
+					<td>{{p.tenLP}}</td>
+					<td>
+						<button class="btn btn-default btn-xs btn-detail" id="btn-edit"
+							ng-click="modal('sua',p.maP)">Sửa</button>
+						<button class="btn btn-danger btn-xs btn-delete"
+							ng-click="del(p.maP)">Xóa</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+
+
+

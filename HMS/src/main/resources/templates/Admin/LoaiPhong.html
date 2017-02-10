@@ -1,0 +1,55 @@
+
+<div class="container-fluid" data-th-fragment="loaiphong">
+	<div class="table-responsive">
+		<button ng-click="modal('them')" type="button" class="btn btn-primary"
+			data-toggle="modal" data-target="#add-quote-modal" id="btn-add">Add
+			new room</button>
+		<!-- Display kindroom in a table -->
+		<table class="table table-hover table-striped">
+			<thead>
+				<tr>
+
+					<th>Mã phòng</th>
+					<th>Tên phòng</th>
+					<th>Mô tả</th>
+					<th>Diện tích</th>
+					<th>Số người tối đa</th>
+					<th>Số giường</th>
+					<th>Tên đơn giá</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="data in kindrooms">
+					<td>{{data.maLP}}</td>
+					<td>{{data.tenLP}}</td>
+					<td>{{data.moTaLP}}</td>
+					<td>{{data.dienTichLP}}</td>
+					<td>{{data.soNguoiLP}}</td>
+					<td>{{data.soGiuongLP}}</td>
+					<td>{{data.tenDG}}</td>
+					<td>
+
+						<button class="btn btn-default btn-xs btn-default"
+							ng-click="det(data.maLP)">Room</button>
+					</td>
+					<td>
+						<button class="btn btn-default btn-xs btn-detail" id="btn-edit"
+							ng-click="modal('sua',data.maLP)">Sửa</button>
+						<button class="btn btn-danger btn-xs btn-delete"
+							ng-click="del(data.maLP)">Xóa</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+
+
+

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta http-equiv="Content-Type"
+	content="application/json; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<title>SB Admin - Bootstrap Admin Template</title>
+
+<!-- Bootstrap Core CSS -->
+<link href="../static/ad-bootstrap/css/bootstrap.min.css"
+	th:href="@{ad-bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+
+<!-- Custom CSS -->
+<link href="../static/ad-bootstrap/css/sb-admin.css"
+	th:href="@{ad-bootstrap/css/sb-admin.css}" rel="stylesheet" />
+
+<link href="../static/ad-bootstrap/css/bootstrap-select.css"
+	th:href="@{ad-bootstrap/css/bootstrap-select.css}" rel="stylesheet" />
+<link href="../static/ad-bootstrap/css/bootstrap-select.min.css"
+	th:href="@{ad-bootstrap/css/bootstrap-select.min.css}" rel="stylesheet" />
+<!-- Morris Charts CSS -->
+<link href="../static/ad-bootstrap/css/plugins/morris.css"
+	th:href="@{ad-bootstrap/css/plugins/morris.css}" rel="stylesheet" />
+<script type="text/javascript" src="/static/angular.min.js"
+	th:src="@{/angular.min.js}"></script>
+<!-- Custom Fonts -->
+<link
+	href="../static/ad-bootstrap/font-awesome/css/font-awesome.min.css"
+	th:href="@{ad-bootstrap/font-awesome/css/font-awesome.min.css}"
+	rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="/static/app/loaiphong.controller.js"
+	th:src="@{/app/loaiphong.controller.js}"></script>
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body ng-app="app" ng-controller="lpController">
+	<div id="wrapper">
+		<!-- Navigation -->
+		<div id="page-wrapper">
+			<div data-th-replace="Admin/Navigation::navigation"></div>
+			<!-- contair fuild -->
+			<div data-th-replace="Admin/LoaiPhong::loaiphong"></div>
+
+			<!-- Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+						</div>
+						<div class="modal-body">
+
+							<form name="frmKindroom" class="form-horizontal">
+								<div class="form-group">
+									<label for="inputEmail3"
+										class="col-xs-12 col-sm-4 control-label">Tên loại phòng</label>
+									<div class="col-xs-9 col-sm-5">
+										<input type="text" class="form-control" id="tenlp"
+											name="tenlp" ng-model="kindroom.tenLP" ng-required="true" />
+										<span id="helpBlock2" class="help-block"
+											ng-show="frmKindroom.tenlp.$error.required">Hãy nhập tên phòng</span>
+									</div>
+
+								</div>
+								<div class="form-group">
+
+									<label for="inputEmail3"
+										class="col-xs-12 col-sm-4 control-label">Diện tích</label>
+									<div class="col-xs-9 col-sm-5">
+										<input type="text" class="form-control" id="dientich" name="dientich"
+											ng-model="kindroom.dienTichLP" ng-required="true" /> <span
+											id="helpBlock2" class="help-block"
+											ng-show="frmKindroom.dientich.$error.required">Hãy nhập diện tích</span>
+
+									</div>
+									<label class="col-xs-3 col-sm-1 control-label">m2</label>
+								</div>
+								<div class="form-group">
+
+									<label for="inputEmail3"
+										class="col-xs-12  col-sm-4 control-label">Số người</label>
+									<div class="col-xs-9 col-sm-5">
+										<input type="text" class="form-control" id="songuoi"
+											name="songuoi" ng-model="kindroom.soNguoiLP"
+											ng-required="true" /> <span id="helpBlock2"
+											class="help-block"
+											ng-show="frmKindroom.songuoi.$error.required">Hãy nhập số người tối đa</span>
+
+									</div>
+
+								</div>
+								<div class="form-group">
+									<label for="inputEmail3"
+										class="col-xs-12 col-sm-4 control-label">Mô tả</label>
+									<div class="col-xs-12 col-sm-8">
+										<textarea class="form-control" id="mota"
+											name="mota" rows="3" ng-model="kindroom.moTaLP"
+											ng-required="true"></textarea>
+										<span id="helpBlock2" class="help-block"
+											ng-show="frmKindroom.mota.$error.required">Hãy nhập mô tả loại phòng</span>
+
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<label for="inputEmail3"
+										class="col-xs-12 col-sm-4 control-label">Số giường</label>
+									<div class="col-xs-9 col-sm-5">
+										<input type="text" class="form-control" id="sogiuong"
+											name="sogiuong" ng-model="kindroom.soGiuongLP"
+											ng-required="true" /> <span id="helpBlock2"
+											class="help-block"
+											ng-show="frmKindroom.sogiuong.$error.required">Hãy nhập số giường!</span>
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<label for="inputEmail3"
+										class="col-xs-12 col-sm-4 control-label">Đơn giá</label>
+									<div class="col-xs-9 col-sm-5">
+										<select class="form-control" ng-model="kindroom.maDG">
+											<option ng-selected="kindroom.maDG==item.maDG"
+												ng-repeat="item in price" ng-value="item.maDG">{{item.tenDG}}</option>
+										</select>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Thoát</button>
+							<button type="button" class="btn btn-primary"
+								ng-disabled="frmKindroom.$invalid"
+								ng-click="save(state,kindroom.maLP,kindroom.maDG)">Lưu</button>
+						</div>
+					</div>
+					<!-- EndModal -->
+				</div>
+			</div>
+			<!-- /.container-fluid -->
+
+			<!--  Modal-->
+			<div class="modal fade" id="myRoomModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+						</div>
+						<div class="modal-body">
+							<div class="table-responsive">
+								<button ng-click="modalroom()" type="button"
+									class="btn btn-primary" data-toggle="modal"
+									data-target="#add-quote-modal" id="btn-add">New room</button>
+								<!-- Display bookings in a table -->
+								<table class="table table-hover table-striped">
+									<thead>
+										<tr>
+
+											<th>ID</th>
+											<th>Status</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="r in krooms.phong">
+											<td>{{r.maP}}</td>
+											<td>{{r.trangThaiP}}</td>
+											<td>
+
+												<button class="btn btn-danger btn-xs btn-delete"
+													ng-click="delroom(r.maP)">Delete</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Thoát</button>
+						</div>
+					</div>
+					<!-- EndModal -->
+				</div>
+			</div>
+
+
+			<!-- Modal -->
+
+			<div class="modal fade" id="newroom" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+						</div>
+						<div class="modal-body">
+							<select multiple="multiple">
+								<option>Mustard</option>
+								<option>Ketchup</option>
+								<option>Relish</option>
+							</select>
+
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary"
+								ng-disabled="frmKindroom.$invalid"
+								ng-click="save(state,kindroom.idLp)">Lưu</button>
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Thoát</button>
+						</div>
+					</div>
+					<!-- EndModal -->
+				</div>
+			</div>
+
+		</div>
+		<!-- /#page-wrapper -->
+	</div>
+	<!-- /#wrapper -->
+	<!-- jQuery -->
+	<script src="/static/ad-bootstrap/js/jquery.js"
+		th:src="@{/ad-bootstrap/js/jquery.js}"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="/static/ad-bootstrap/js/bootstrap.min.js"
+		th:src="@{/ad-bootstrap/js/bootstrap.min.js}"></script>
+	<script src="/static/ad-bootstrap/js/bootstrap-select.js"
+		th:src="@{/ad-bootstrap/js/bootstrap-select.js}"></script>
+	<script src="/static/ad-bootstrap/js/bootstrap-select.min.js"
+		th:src="@{/ad-bootstrap/js/bootstrap-select.min.js}"></script>
+
+
+
+</body>
+
+</html>
+
+

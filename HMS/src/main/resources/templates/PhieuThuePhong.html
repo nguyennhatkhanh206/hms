@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta http-equiv="Content-Type"
+	content="application/json; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<title>SB Admin - Bootstrap Admin Template</title>
+
+<!-- Bootstrap Core CSS -->
+<link href="../static/ad-bootstrap/css/bootstrap.min.css"
+	th:href="@{ad-bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+
+<!-- Custom CSS -->
+<link href="../static/ad-bootstrap/css/sb-admin.css"
+	th:href="@{ad-bootstrap/css/sb-admin.css}" rel="stylesheet" />
+<script type="text/javascript" src="/static/angular.min.js"
+	th:src="@{/angular.min.js}"></script>
+<!-- Custom Fonts -->
+<link
+	href="../static/ad-bootstrap/font-awesome/css/font-awesome.min.css"
+	th:href="@{ad-bootstrap/font-awesome/css/font-awesome.min.css}"
+	rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="/static/app/loaiphong.controller.js"
+	th:src="@{/app/loaiphong.controller.js}"></script>
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body ng-app="app" ng-controller="lpController">
+	<div id="wrapper">
+		<!-- Navigation -->
+		<div id="page-wrapper">
+		   <div data-th-replace="Admin/Navigation::navigation"></div>
+			<!-- contair fuild -->
+			<!-- /.container-fluid -->
+			<form name="frmThuephong" class="form-horizontal">
+				<div class="form-group">
+					<label for="inputEmail3" class="col-sm-2 control-label">CMND</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" id="cmnd" name="cmnd"
+							ng-model="cmndKH" ng-required="true"
+							ng-change="checkkhach(cmndKH)" /> <span id="helpBlock2"
+							class="help-block" ng-show="frmThuephong.cmnd.$error.required">Hãy
+							nhập số chứng minh nhân dân khách</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputEmail3" class="col-sm-2 control-label">Họ
+						tên</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" id="hoten" name="hoten"
+							ng-model="khachhang.hoTenKH" ng-required="true" /> <span
+							id="helpBlock2" class="help-block"
+							ng-show="frmThuephong.hoten.$error.required">Hãy nhập họ
+							tên khách</span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="inputEmail3" class="col-sm-2 control-label">Quê
+						quán</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" id="diachi" name="diachi"
+							ng-model="khachhang.queQuanKH" ng-required="true" /> <span
+							id="helpBlock2" class="help-block"
+							ng-show="frmThuephong.diachi.$error.required">Hãy nhập quê
+							quán khách</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputEmail3" class="col-sm-2 control-label">Số
+						điện thoại</label>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" id="diachi" name="diachi"
+							ng-model="khachhang.sdtKH" ng-required="true" /> <span
+							id="helpBlock2" class="help-block"
+							ng-show="frmThuephong.diachi.$error.required">Hãy nhập quê
+							quán khách</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputEmail3" class="col-sm-2 control-label">Ngày
+						vào</label>
+					<div class="col-sm-4">
+						<input type="date" class="form-control" id="ngayvao"
+							name="ngayvao" ng-model="ngayvao" ng-required="true" /> <span
+							id="helpBlock2" class="help-block"
+							ng-show="frmThuephong.ngayvao.$error.required">Hãy nhập
+							ngày vào</span>
+
+					</div>
+
+					<label for="inputEmail3" class="col-sm-2 control-label">Ngày
+						ra</label>
+					<div class="col-sm-4">
+						<input type="date" class="form-control" id="ngayra" name="ngayra"
+							ng-model="ngayra" min="ngayvao" ng-required="true" /> <span
+							id="helpBlock2" class="help-block"
+							ng-show="frmThuephong.ngayra.$error.required">Hãy nhập
+							ngày ra</span>
+					</div>
+
+				</div>
+
+				<div class="form-group">
+					<label for="inputEmail3" class="col-sm-2 control-label">Ghi
+						chú</label>
+					<div class="col-sm-9">
+						<textarea class="form-control" id="mota" name="mota" rows="3"
+							ng-model="ghichu" ng-required="true"></textarea>
+						<span id="helpBlock2" class="help-block"
+							ng-show="frmThuePhong.mota.$error.required"></span>
+
+					</div>
+				</div>
+			</form>
+			<div>
+				<div class="table-responsive">
+					<!-- Display bookings in a table -->
+					<table class="table table-hover table-striped">
+						<thead>
+							<tr>
+
+								<th>CMND</th>
+								<th>Họ tên</th>
+								<th>Quê quán</th>
+								<th>Số điện thoại</th>
+
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="pr in pricess">
+								<td>{{pr.maDG}}</td>
+								<td>{{pr.tenDG}}</td>
+								<td>{{pr.giaDemDG}}</td>
+								<td>{{pr.giaGioDG}}</td>
+								<td>
+									<button class="btn btn-default btn-xs btn-detail" id="btn-edit"
+										ng-click="modal('sua',pr.maDG)">Sửa</button>
+									<button class="btn btn-danger btn-xs btn-delete"
+										ng-click="del(pr.maDG)">Xóa</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+					<button type="button" class="btn btn-primary"
+						ng-disabled="frmPhong.$invalid" ng-click="nhanphong()">Lưu</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="/static/ad-bootstrap/js/jquery.js"
+		th:src="@{/ad-bootstrap/js/jquery.js}"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="/static/ad-bootstrap/js/bootstrap.min.js"
+		th:src="@{/ad-bootstrap/js/bootstrap.min.js}"></script>
+	<script src="/static/ad-bootstrap/js/bootstrap-select.js"
+		th:src="@{/ad-bootstrap/js/bootstrap-select.js}"></script>
+	<script src="/static/ad-bootstrap/js/bootstrap-select.min.js"
+		th:src="@{/ad-bootstrap/js/bootstrap-select.min.js}"></script>
+
+</body>
+</html>
