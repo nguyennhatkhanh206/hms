@@ -82,11 +82,10 @@
 							<li class="active"><a href="#"><span
 									class="glyphicon glyphicon-home" aria-hidden="true"></span>Home<span
 									class="sr-only">(current)</span></a></li>
-							<li><a href="#">Rooms</a></li>
-							<li><a href="#">Promotion</a></li>
-							<li><a href="#">Regulations</a></li>
-							<li><a href="#">Book for groups</a></li>
-							<li><a href="#">Contact</a></li>
+							<li><a href="#">Loại phòng</a></li>
+							<li><a href="#">Khuyến mãi</a></li>
+							<li><a href="#">Quy tắc</a></li>
+							<li><a href="#">Liên hệ</a></li>
 						</ul>
 
 					</div>
@@ -139,7 +138,7 @@
 
 		<div id="main">
 
-			<div class="row home-row">
+			<div class="row home-row" ng-show="khungtimkiem" ng-init="khungtimkiem=true">
 				<div class="row col-xs-12 col-md-12">
 					<form class="form-horizontal">
 						<div class="form-group">
@@ -197,28 +196,28 @@
 								<th></th>
 
 							</tr>
-							<tr ng-repeat="item in dsphong">
+							<tr ng-repeat="item in phonggia">
 								<th><input type="checkbox" /></th>
 								<th>
-									<p>{{item.maP}}</p>
+									<p>{{item.phong.maP}}</p>
 								</th>
 								<td>
-									<p>{{item.tenLP}}</p>
+									<p>{{item.phong.tenLP}}</p>
 
 								</td>
 								<td>
 
-									<p>Number of bed: 1</p>
+									<p>Number of bed: {{item.dongia.loaiphong.soGiuongLP}}</p>
 									<p>Max people:2 people</p>
 								</td>
-								<td><a href="">450.000VND</a></td>
+								<td>{{item.dongia.giaDemDG}}</td>
 								<td><a href="#" class="btn btn-primary"
-									ng-click="btndatphong(item.maP)">Đặt phòng</a></td>
+									ng-click="btndatphong(item.phong.maP)">Đặt phòng</a></td>
 
 							</tr>
 							<tr>
 								<td colspan="6"><a href="#" class="btn btn-primary"
-									ng-click="btndatphong(item.maP)">Đặt phòng đã chọn</a></td>
+									ng-click="btndatphong()">Đặt phòng đã chọn</a></td>
 							</tr>
 
 
@@ -236,20 +235,20 @@
 							</div>
 							<div class="row home-rw">
 								<div class="row col-xs-12 col-md-12">
-									<form class="form-horizontal">
+									<form class="form-horizontal" id="formDatPhong">
 										<div class="form-group">
 											<label class=" col-xs-4 col-md-4" for="pwd">Ngày vào:</label>
 											<div class="col-xs-8 col-md-8">
 												<input type="date" class="form-control" id="ngayvao"
-													ng-model="ngayvao" ng-change="tinhsodem()" />
+													ng-model="ngayvao" disabled="disabled"/>
 
 											</div>
 										</div>
 										<div class="form-group">
 											<label class=" col-xs-4 col-md-4" for="pwd">Ngày trả:</label>
 											<div class="col-xs-8 col-md-8">
-												<input type="date" class="form-control" id="ngayvao"
-													ng-model="ngayvao" ng-change="tinhsodem()" />
+												<input type="date" class="form-control" id="ngayra"
+													ng-model="ngayra" ng-change="tinhsodem()"/>
 
 											</div>
 										</div>
@@ -266,7 +265,8 @@
 												minh thư</label>
 											<div class="col-xs-8 col-md-8">
 												<input type="text" class="form-control" id="chungminh"
-													ng-model="chungminh"/>
+													ng-model="chungminh" ng-required="true" /> 
+												<span id="helpBlock2" class="help-block" ng-show="fromDatPhong.chungminh.$error.required">Hãy nhập họtên khách</span>
 
 											</div>
 										</div>
@@ -274,7 +274,7 @@
 											<label class=" col-xs-4 col-md-4" for="pwd">Họ tên</label>
 											<div class="col-xs-8 col-md-8">
 												<input type="text" class="form-control" id="hoten"
-													ng-model="hoten"/>
+													ng-model="hoten" ng-required="true" />
 
 											</div>
 										</div>
@@ -296,10 +296,10 @@
 										</div>
 										<div class="form-group">
 											<div class=" col-xs-12 col-md-6 radio">
-												<label><input type="radio" name="optradio"/>Thanh toán chuyển khoản</label>
+												<label><input type="radio" name="optradio" checked="checked" ng-value="1" ng-model="thanhtoan"/>Thanh toán chuyển khoản</label>
 											</div>
 											<div class=" col-xs-12 col-md-6 radio">
-												<label><input type="radio" name="optradio"/>Thanh toán trực tuyến</label>
+												<label><input type="radio" name="optradio" ng-value="2" ng-model="thanhtoan"/>Thanh toán trực tuyến</label>
 											</div>
 										</div>
 										<div class="form-group">
@@ -333,7 +333,7 @@
 												phòng:</label>
 											<div class="col-xs-8 col-md-8">
 												<input type="text" class="form-control" id="loaiphong"
-													ng-model="loaiphong"/>
+													ng-model="phong.tenLP"/>
 
 											</div>
 										</div>
@@ -402,7 +402,7 @@
 										<p>Số giường: {{item.soGiuongLP}}</p>
 										<p>Tối đa: {{item.soNguoiLP}} people</p>
 									</td>
-									<td><a href="">450.000VND</a></td>
+									<td>450.000VND</td>
 									<td><input type="number" class="form-control" id="soluong"
 													ng-model="soluong"/></td>
 									<td><a href="#" class="btn btn-primary">Đặt phòng</a></td>

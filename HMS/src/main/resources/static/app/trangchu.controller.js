@@ -5,7 +5,12 @@ app.controller('tcController', function($scope, $http) {
 		$scope.dsloaiphong= response;
 	});
 	
+	$http.get('/dongia/list').success(function(response) {
+		$scope.dsdongia= response;
+		
+	});
 	
+;
 	$scope.tinhsodem=function(){
 		if($scope.ngayra=="" || $scope.ngayra=="")
 		{
@@ -52,7 +57,8 @@ app.controller('tcController', function($scope, $http) {
 				for(i=0;i<$scope.dsp.length;i++)
 				{
 					$scope.dsphong.push({
-						maP:$scope.dsp[i].maP
+						maP:$scope.dsp[i].maP,
+						tenLP:$scope.dsp[i].tenLP
 					});	
 				}
 				for(i=0;i<$scope.phongloai.length;i++)
@@ -66,7 +72,20 @@ app.controller('tcController', function($scope, $http) {
 						    	 }
 						  }
 					} 
-			    console.log($scope.phongloai);
+				$scope.phonggia=[];
+				for(i=0;i<$scope.dsphong.length;i++)
+				{for(j=0;j<$scope.dsdongia.length;j++){
+					if($scope.dsphong[i].maLP==$scope.dsdongia[j].loaiphong.maLP)
+						{
+						  $scope.phonggia.push({
+							  phong:$scope.dsphong[i],
+							  dongia:$scope.dsdongia[j]
+						  });
+						}
+				}
+				}	
+				console.log($scope.dsphong);
+				console.log($scope.phonggia);
 				$scope.thu=true;
 				$scope.trangchu=false;
 			});
@@ -77,6 +96,14 @@ app.controller('tcController', function($scope, $http) {
 	$scope.btndatphong=function(id){
 		$scope.datphong=true;
 		$scope.thu=false;
+		$scope.khungtimkiem=false;
+		$scope.maphong=id;
+		$http.get('/phong/update/'+ $scope.maP).success(function(response) {
+			$scope.phong= response;	
+		});
+	}
+	$scope.luudatphong=function(){
+		console.log($scope.thanhtoan);
 	}
 	 
 

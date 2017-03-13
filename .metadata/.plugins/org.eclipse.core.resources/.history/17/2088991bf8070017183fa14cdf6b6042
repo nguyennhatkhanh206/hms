@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type"
+	content="application/json; charset=utf-8" />
+<title>Hotel Booking App</title>
+<link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css"
+	th:href="@{bootstrap/css/bootstrap.min.css}" />
+<script type="text/javascript" src="/static/bootstrap/js/jquery.min.js"
+	th:src="@{bootstrap/js/jquery.min.js}"></script>
+<script type="text/javascript" src="/static/angular.min.js"
+	th:src="@{/angular.min.js}"></script>
+<script type="text/javascript" src="/static/ad-bootstrap/js/moment.js"
+	th:src="@{/ad-bootstrap/js/moment.js}"></script>
+<script type="text/javascript"
+	src="/static/bootstrap/js/bootstrap.min.js"
+	th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<link rel="stylesheet" href="../static/style.css"
+	th:href="@{/style.css}" />
+
+<script type="text/javascript" src="/static/app/trangchu.controller.js"
+	th:src="@{/app/trangchu.controller.js}"></script>
+</head>
+<body ng-app="app" ng-controller="tcController">
+	<div class="container">
+		<!-- Phan header -->
+		<header>
+			<div class="top-bar">
+				<div class="container">
+					<div id="search" class="row">
+						<div class="row col-xs-12 col-md-12">
+							<div class="row col-xs-6 col-md-7">
+								<div class="row col-xs-6 col-md-5">
+									<input type="text" class="form-control" />
+								</div>
+								<div class="row col-xs-3 col-md-2">
+									<span class="input-group-btn"><button
+											class="btn btn-default" type="button">
+											<i class="glyphicon glyphicon-search"></i>
+										</button></span>
+								</div>
+
+							</div>
+							<div class="pull-right top-links">
+								<div class="btn-group ">
+									<button type="button" class="btn btn-default dropdown-toggle"
+										data-toggle="dropdown" aria-haspopup="true"
+										aria-expanded="false">
+										English <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li><a href="#">Vietnamese</a></li>
+										<li><a href="#">Italian</a></li>
+									</ul>
+								</div>
+
+								<button type="button" class="btn btn-default">Sign in</button>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="main-content">
+				<div class="container">
+					<div class="row">
+						<div class="row col-xs-12 col-md-12 text-center">
+							<img class="name" src="/static/img/name.jpg"
+								th:src="@{/img/name.jpg}" />
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="main-nav">
+				<div class="container">
+					<div class="row">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="#"><span
+									class="glyphicon glyphicon-home" aria-hidden="true"></span>Home<span
+									class="sr-only">(current)</span></a></li>
+							<li><a href="#">Loại phòng</a></li>
+							<li><a href="#">Khuyến mãi</a></li>
+							<li><a href="#">Quy tắc</a></li>
+							<li><a href="#">Liên hệ</a></li>
+						</ul>
+
+					</div>
+				</div>
+
+			</div>
+		</header>
+		<div class="row">
+			<div class="col-md-12">
+				<!-- Phan slideshow -->
+				<div id="home-slideshow" class="carousel slide" data-ride="carousel">
+					<!-- Indicators -->
+					<ol class="carousel-indicators">
+						<li data-target="#home-slideshow" data-slide-to="0" class="active"></li>
+						<li data-target="#home-slideshow" data-slide-to="1"></li>
+						<li data-target="#home-slideshow" data-slide-to="2"></li>
+					</ol>
+
+					<!-- Wrapper for slides -->
+					<div class="carousel-inner" role="listbox">
+						<div class="item active">
+							<img src="/static/img/imga.jpg" th:src="@{/img/imga.jpg}"
+								alt="slide1" />
+							<div class="carousel-caption">Slide1</div>
+						</div>
+						<div class="item">
+							<img src="/static/img/imgb.jpg" th:src="@{/img/imgb.jpg}"
+								alt="slide2" />
+							<div class="carousel-caption">Slide2</div>
+						</div>
+						<div class="item">
+							<img src="/static/img/imgc.jpg" th:src="@{/img/imgc.jpg}"
+								alt="slide3" />
+							<div class="carousel-caption">Slide3</div>
+						</div>
+					</div>
+					<!-- Controls -->
+					<a class="left carousel-control" href="#home-slideshow"
+						role="button" data-slide="prev"> <span
+						class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a> <a class="right carousel-control" href="#home-slideshow"
+						role="button" data-slide="next"> <span
+						class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div id="main">
+
+			<div class="row home-row" ng-show="khungtimkiem" ng-init="khungtimkiem=true">
+				<div class="row col-xs-12 col-md-12">
+					<form class="form-horizontal">
+						<div class="form-group">
+							<label class=" col-xs-3 col-md-3" for="pwd">Ngày vào:</label> <label
+								class="col-xs-3 col-md-3" for="pwd">Ngày ra:</label> <label
+								class="col-xs-4 col-md-4" for="pwd">Số đêm:</label> <label
+								class=" col-xs-2 col-md-2" for="pwd">Loại phòng:</label>
+
+						</div>
+						<div class="form-group">
+
+							<div class="col-xs-3 col-md-3">
+								<input type="date" class="form-control" id="ngayvao"
+									ng-model="ngayvao" ng-change="tinhsodem()" />
+
+							</div>
+
+							<div class="col-xs-3 col-md-3">
+								<input type="date" class="form-control" id="ngayra"
+									ng-model="ngayra" ng-change="tinhsodem()" />
+							</div>
+
+							<div class="col-xs-4 col-md-4">
+								<input type="number" class="form-control" id="sodem"
+									ng-model="sodem" disabled="disabled" />
+							</div>
+
+							<div class="col-xs-2 col-md-2">
+								<select class="form-control" ng-model="loaiphong">
+									<option ng-repeat="item in dsloaiphong" value="{{item.maLP}}">{{item.tenLP}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-offset-5 col-sx-12 col-md-10">
+								<button type="submit" class="btn btn-default "
+									ng-click='timkiem()'>Tìm kiếm</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- Phong tim kiem -->
+			<div class="row">
+
+				<div class="row home-rw" ng-show="thu" ng-init="thu=false">
+					<div class="row col-xs-12 col-md-12">
+						<table class="table table-striped table-hover">
+							<tr>
+								<th></th>
+								<th>Mã phòng</th>
+								<th>Loại phòng</th>
+								<th>Chi tiết</th>
+								<th>Gía(Chưa gồm phụ thu)</th>
+								<th></th>
+
+							</tr>
+							<tr ng-repeat="item in dsphong">
+								<th><input type="checkbox" /></th>
+								<th>
+									<p>{{item.maP}}</p>
+								</th>
+								<td>
+									<p>{{item.tenLP}}</p>
+
+								</td>
+								<td>
+
+									<p>Number of bed: 1</p>
+									<p>Max people:2 people</p>
+								</td>
+								<td><a href="">450.000VND</a></td>
+								<td><a href="#" class="btn btn-primary"
+									ng-click="btndatphong(item.maP)">Đặt phòng</a></td>
+
+							</tr>
+							<tr>
+								<td colspan="6"><a href="#" class="btn btn-primary"
+									ng-click="btndatphong()">Đặt phòng đã chọn</a></td>
+							</tr>
+
+
+						</table>
+
+					</div>
+				</div>
+
+				<!-- Đặt phòng -->
+				<div class="row home-rw" ng-show="datphong" ng-init="datphong=false">
+					<div class="row col-xs-12 col-md-12 ">
+						<div class="row col-sx-7  col-md-7 datphongtitle">
+							<div class="col-md-6 home-quote col-centered">
+								<h4><b>Thông tin liên hệ</b></h4>
+							</div>
+							<div class="row home-rw">
+								<div class="row col-xs-12 col-md-12">
+									<form class="form-horizontal">
+										<div class="form-group">
+											<label class=" col-xs-4 col-md-4" for="pwd">Ngày vào:</label>
+											<div class="col-xs-8 col-md-8">
+												<input type="date" class="form-control" id="ngayvao"
+													ng-model="ngayvao" disabled="disabled"/>
+
+											</div>
+										</div>
+										<div class="form-group">
+											<label class=" col-xs-4 col-md-4" for="pwd">Ngày trả:</label>
+											<div class="col-xs-8 col-md-8">
+												<input type="date" class="form-control" id="ngayra"
+													ng-model="ngayra" ng-change="tinhsodem()"/>
+
+											</div>
+										</div>
+										<div class="form-group">
+											<label class=" col-xs-4 col-md-4" for="pwd">Số đêm</label>
+											<div class="col-xs-8 col-md-8">
+												<input type="text" class="form-control" id="sodem"
+													ng-model="sodem"/>
+
+											</div>
+										</div>
+										<div class="form-group">
+											<label class=" col-xs-4 col-md-4" for="pwd">Chứng
+												minh thư</label>
+											<div class="col-xs-8 col-md-8">
+												<input type="text" class="form-control" id="chungminh"
+													ng-model="chungminh"/>
+
+											</div>
+										</div>
+										<div class="form-group">
+											<label class=" col-xs-4 col-md-4" for="pwd">Họ tên</label>
+											<div class="col-xs-8 col-md-8">
+												<input type="text" class="form-control" id="hoten"
+													ng-model="hoten"/>
+
+											</div>
+										</div>
+										<div class="form-group">
+											<label class=" col-xs-4 col-md-4" for="pwd">Di động</label>
+											<div class="col-xs-8 col-md-8">
+												<input type="text" class="form-control" id="didong"
+													ng-model="didong" />
+
+											</div>
+										</div>
+										<div class="form-group">
+											<label class=" col-xs-4 col-md-4" for="pwd">Email</label>
+											<div class="col-xs-8 col-md-8">
+												<input type="email" class="form-control" id="email"
+													ng-model="email"/>
+
+											</div>
+										</div>
+										<div class="form-group">
+											<div class=" col-xs-12 col-md-6 radio">
+												<label><input type="radio" name="optradio"/>Thanh toán chuyển khoản</label>
+											</div>
+											<div class=" col-xs-12 col-md-6 radio">
+												<label><input type="radio" name="optradio"/>Thanh toán trực tuyến</label>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-md-offset-5 col-sx-12 col-md-10">
+												<button type="submit" class="btn btn-primary "
+													ng-click='luudatphong()'>Đặt phòng</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="row col-sx-5 col-md-5 datphongtitle">
+
+							<div class="col-md-6 home-quote col-centered">
+								<h4><b>Thông tin phòng</b></h4>
+							</div>
+							<div class="row home-rw">
+								<div class="row col-xs-12 col-md-12">
+									<form class="form-horizontal">
+										<div class="form-group">
+											<label class=" col-xs-4 col-md-4" for="pwd">Mã phòng</label>
+											<div class="col-xs-8 col-md-8">
+												<input type="text" class="form-control" id="maphong"
+													ng-model="maphong"/>
+
+											</div>
+										</div>
+										<div class="form-group">
+											<label class=" col-xs-4 col-md-4" for="pwd">Loại
+												phòng:</label>
+											<div class="col-xs-8 col-md-8">
+												<input type="text" class="form-control" id="loaiphong"
+													ng-model="phong.tenLP"/>
+
+											</div>
+										</div>
+										<div class="form-group">
+											<label class=" col-xs-4 col-md-4" for="pwd">Dịch vụ:
+												</label>
+											<div class="col-xs-8 col-md-8">
+												<input type="text" class="form-control" id="dichvu"
+													ng-model="dichvu"/>
+
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class=" col-xs-4 col-md-4" for="pwd">Gía phòng</label>
+											<div class="col-xs-8 col-md-8">
+												<input type="number" class="form-control" id="giaphong"
+													ng-model="giaphong"/>
+
+											</div>
+										</div>
+										<div class="form-group">
+											<label class=" col-xs-4 col-md-4" for="pwd">Tổng tiền</label>
+											<div class="col-xs-8 col-md-8">
+												<input type="text" class="form-control" id="tongtien"
+													ng-model="tongtien"/>
+
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<!-- DonGia -->
+				<div class="box" ng-show="trangchu" ng-init="trangchu=true">
+					<div class="col-md-6 home-quote col-centered">
+						<h6>Loại phòng</h6>
+					</div>
+					<div class="row home-rw">
+						<div class="row col-xs-12 col-md-12">
+							<table class="table table-striped table-hover">
+								<tr>
+
+									<th>Tên loại</th>
+									<th>Chi tiết</th>
+									<th><p>Gía</p>
+										<p>(Không bao gồm thuế và phụ thu)</p></th>
+									<th>Số lượng đặt</th>
+									<th></th>
+
+								</tr>
+								<tr ng-repeat="item in dsloaiphong">
+									<th>
+										<p>{{item.maLP}}-{{item.tenLP}}</p>
+										<p>
+											<img class="room-kind" src="/static/img/imge.jpg"
+												th:src="@{img/imge.jpg}" />
+										</p> <a href="">Danh sách phòng</a>
+									</th>
+									<td>
+										<p>Diện tích: {{item.dienTichLP}}</p>
+										<p>Số giường: {{item.soGiuongLP}}</p>
+										<p>Tối đa: {{item.soNguoiLP}} people</p>
+									</td>
+									<td><a href="">450.000VND</a></td>
+									<td><input type="number" class="form-control" id="soluong"
+													ng-model="soluong"/></td>
+									<td><a href="#" class="btn btn-primary">Đặt phòng</a></td>
+
+								</tr>
+
+								
+							</table>
+
+						</div>
+					</div>
+
+					<!-- Ban do -->
+					<div class="row">
+						<div class="col-md-6 home-quote col-centered">
+							<h6>CONTACT US</h6>
+						</div>
+					</div>
+					<div class="row home-rw">
+						<div class="col-xs-8 col-md-8">
+							<iframe
+								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62818.810042668505!2d105.90259891862706!3d10.247415240117064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a82cd5bf1a7a5%3A0x5b1bc07ba40ecd86!2zVHAuIFbEqW5oIExvbmcsIFbEqW5oIExvbmcsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1484657038545"
+								width="100%" height="350" frameborder="0" style="border: 0"
+								allowfullscreen="true"></iframe>
+
+						</div>
+
+						<div class="col-xs-4 col-md-4">
+							<p>
+								Phone:<strong>0702.7989243</strong>
+							</p>
+							<p>
+								Email:<strong>ttquochuong@gmail.com</strong>
+							</p>
+							<p>
+								Address:<strong>32 Đinh Tiên Hoàng Street, 8 Ward, Vĩnh
+									Long City </strong>
+							</p>
+						</div>
+
+					</div>
+					<div class="row home-row">
+
+						<div class="col-xs-12 col-sm-6 col-lg-3">
+							<span class="home-icon  glyphicon glyphicon-star"
+								aria-hidden="true"></span>
+							<h3 class="home-title">About us</h3>
+							<p class="text-center">I'm a paragraph. Click here to add
+								your own text and edit me. I’m a great place for you to tell a
+								story and let your users know a little more about you.</p>
+							<p class="text-center">
+								<a href="#" class="btn btn-primary">Read more</a>
+							</p>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-lg-3">
+							<span class="home-icon  glyphicon glyphicon-camera"
+								aria-hidden="true"></span>
+							<h3 class="home-title">Activity</h3>
+							<p>I'm a paragraph. Click here to add your own text and edit
+								me. I’m a great place for you to tell a story and let your users
+								know a little more about you.</p>
+							<p class="text-center">
+								<a href="#" class="btn btn-primary">Read more</a>
+							</p>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-lg-3">
+							<span class="home-icon  glyphicon glyphicon-list"
+								aria-hidden="true"></span>
+							<h3 class="home-title">Room</h3>
+							<p>I'm a paragraph. Click here to add your own text and edit
+								me. I’m a great place for you to tell a story and let your users
+								know a little more about you.</p>
+							<p class="text-center">
+								<a href="#" class="btn btn-primary">Read more</a>
+							</p>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-lg-3">
+							<span class="home-icon  glyphicon glyphicon-envelope"
+								aria-hidden="true"></span>
+							<h3 class="home-title">Feedback</h3>
+							<p>I'm a paragraph. Click here to add your own text and edit
+								me. I’m a great place for you to tell a story and let your users
+								know a little more about you.</p>
+							<p class="text-center">
+								<a href="#" class="btn btn-primary">Read more</a>
+							</p>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<footer class="footer">
+				<div class="container">
+					<p th:text="${#dates.format(date, 'dd-MM-yyyy HH:mm')}"
+						class="text-muted">Page was rendered today.</p>
+
+				</div>
+			</footer>
+		</div>
+	</div>
+</body>
+</html>
