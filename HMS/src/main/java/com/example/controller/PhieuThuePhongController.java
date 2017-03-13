@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,10 @@ public class PhieuThuePhongController {
 	    Phong phong=pRepository.findOne(map);
 		pr.setKhachhang(prs.getKhachhang());
 		pr.setLoaithue(prs.getLoaithue());
+		pr.setDoankhach(prs.getDoankhach());
 		pr.setNhanvien(a);
 		pr.setNgayBD(prs.getNgayBD());
+		pr.setNgayTP(prs.getNgayTP());
 		pr.setTiendatra(prs.getTiendatra());
 		pr.setGhiChu(prs.getGhiChu());
 		pr.setPhong(phong);
@@ -55,7 +58,8 @@ public class PhieuThuePhongController {
 		return ptpRepository.findAll();
 
 	}
-
+	
+	
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
 	public PhieuThuePhong getupdate(@PathVariable int id) {
 
@@ -63,19 +67,42 @@ public class PhieuThuePhongController {
 
 	}
 
-	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST, produces = "application/json;chaset=UTF-8")
-	public PhieuThuePhong postupdate(@RequestBody PhieuThuePhong prs, @PathVariable int id) {
+	@RequestMapping(value = "/update/{id}/{maP}", method = RequestMethod.POST, produces = "application/json;chaset=UTF-8")
+	public PhieuThuePhong postupdate(@RequestBody PhieuThuePhong prs, @PathVariable int id,@PathVariable String maP) {
 		PhieuThuePhong pr = ptpRepository.findOne(id);
+		NhanVien a=nvRepository.findOne("f");
+		Phong phong=pRepository.findOne(maP);
+		pr.setPhong(phong);
 		ptpRepository.save(pr);
 		return ptpRepository.findOne(id);
 
 	}
+	
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public List<PhieuThuePhong> remove(@PathVariable int id) {
 		ptpRepository.delete(id);
 		return ptpRepository.findAll();
 
+	}
+	
+	@RequestMapping(value = "/sophieu/{id}", method = RequestMethod.GET)
+	public Long sophieu(@PathVariable String id) {
+		Phong phong=pRepository.findOne(id) ;	
+		long sophieu=ptpRepository.countByPhong(phong);
+		return sophieu;
+
+	}
+	@RequestMapping(value = "/dsphong/{id}", method = RequestMethod.GET)
+	public List<PhieuThuePhong> timthuephong(@PathVariable String id) {
+		Phong phong=pRepository.findOne(id) ;	
+		return ptpRepository.findAllByPhong(phong);
+	}
+	
+	@RequestMapping(value = "/dsthue/{id}", method = RequestMethod.GET)
+	public List<PhieuThuePhong> saungaythue(@PathVariable String id) {
+		Date ngaythue=new Date(id);	
+		return ptpRepository.findByNgayTPAfter(ngaythue);
 	}
 
 }

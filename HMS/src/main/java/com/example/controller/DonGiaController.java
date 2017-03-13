@@ -61,7 +61,7 @@ public class DonGiaController {
 		pr.setGiaDemDG(prs.getGiaDemDG());
 		pr.setGiaGioDG(prs.getGiaGioDG());
 		pr.setPhuThuCT(prs.getPhuThuCT());
-		pr.setPhuThuM(prs.getPhuThuM());;
+		pr.setPhuThuM(prs.getPhuThuM());
 		pr.setKhuyenMai(prs.getKhuyenMai());
 		dgRepository.save(pr);
 		return dgRepository.findOne(id);

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.model.DonGia;
 import com.example.model.KhachHang;
 import com.example.model.LoaiPhong;
 import com.example.model.NhanVien;
@@ -58,6 +59,11 @@ public class KhachHangController {
 		kh.setTichluyKH(khachhang.getTichluyKH()+1);
 		khRepository.save(kh);
 		return khRepository.findOne(id);
+	}
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	public List<KhachHang> remove(@PathVariable String id) {
+		khRepository.delete(id);
+		return khRepository.findAll();
 
 	}
 }

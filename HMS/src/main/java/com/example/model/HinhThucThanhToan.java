@@ -23,6 +23,10 @@ public class HinhThucThanhToan {
 	@OneToMany(mappedBy = "hinhthuctt", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<PhieuDatPhong> phieudatphong= new ArrayList<PhieuDatPhong>();
 
+
+	@OneToMany(mappedBy = "hinhthuctt", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<HoaDon> hoadon= new ArrayList<HoaDon>();
+	
 	public HinhThucThanhToan() {
 		super();
 	}

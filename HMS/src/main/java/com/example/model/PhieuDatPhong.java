@@ -1,6 +1,8 @@
 package com.example.model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -19,10 +21,13 @@ public class PhieuDatPhong {
 	private int maPDP;
 
 	@NotNull
-	private Date checkinPDP;
-
+	private Date ngaydatPDP;
+	
 	@NotNull
-	private Date checkoutPDP;
+	private Date ngayvaoPDP;
+	
+	@NotNull
+	private Date ngayraPDP;
 
 	@NotNull
 	private int sodemPDP;
@@ -40,14 +45,10 @@ public class PhieuDatPhong {
 	private String emailDK;
 
 	@NotNull
-	private String sdtDK;
-
-	@NotNull
 	private int ktthanhtoan;
-
+		
 	@NotNull
 	private int ktnhanphong;
-		
 	@ManyToOne
 	@JoinColumn(name = "maHTTT")
 	private HinhThucThanhToan hinhthuctt;
@@ -57,42 +58,52 @@ public class PhieuDatPhong {
 	@JoinTable(name = "CTPhieuDatPhong", joinColumns = @JoinColumn(name = "maPDP"), inverseJoinColumns = @JoinColumn(name = "maP"))
 	private List<Phong> phong = new ArrayList<Phong>();
 	
-	@OneToOne(mappedBy="phieudatphong")
+	@OneToOne(mappedBy="phieudatphong",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private PhieuHuyPhong phieuhuyphong;
+	
+	@OneToOne(mappedBy="phieudatphong",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private PhieuHuyPhong phieunhanphong;
+
 
 	public PhieuDatPhong() {
 		super();
 	}
 
-	public PhieuDatPhong(Date checkinPDP, Date checkoutPDP, int sodemPDP, Date hanTraPDP, String tenDK, String cmndDK,
-			String emailDK, String sdtDK, int ktthanhtoan, List<Phong> phong) {
+	public PhieuDatPhong(Date ngaydatPDP, Date ngayvaoPDP, Date ngayraPDP, int sodemPDP, Date hanTraPDP,
+			String tenDK, String cmndDK, String emailDK, int ktthanhtoan, int ktnhanphong,
+			HinhThucThanhToan hinhthuctt, List<Phong> phong) {
 		super();
-		this.checkinPDP = checkinPDP;
-		this.checkoutPDP = checkoutPDP;
+		this.ngaydatPDP = ngaydatPDP;
+		this.ngayvaoPDP = ngayvaoPDP;
+		this.ngayraPDP = ngayraPDP;
 		this.sodemPDP = sodemPDP;
 		this.hanTraPDP = hanTraPDP;
 		this.tenDK = tenDK;
 		this.cmndDK = cmndDK;
 		this.emailDK = emailDK;
-		this.sdtDK = sdtDK;
 		this.ktthanhtoan = ktthanhtoan;
+		this.ktnhanphong = ktnhanphong;
+		this.hinhthuctt = hinhthuctt;
 		this.phong = phong;
 	}
 
-	public Date getCheckinPDP() {
-		return checkinPDP;
+
+
+	public Date getNgayvaoPDP() {
+		return ngayvaoPDP;
 	}
 
-	public void setCheckinPDP(Date checkinPDP) {
-		this.checkinPDP = checkinPDP;
+	public void setNgayvaoPDP(Date ngayvaoPDP) {
+		this.ngayvaoPDP = ngayvaoPDP;
 	}
 
-	public Date getCheckoutPDP() {
-		return checkoutPDP;
+	public Date getNgayraPDP() {
+		
+		return ngayraPDP;
 	}
 
-	public void setCheckoutPDP(Date checkoutPDP) {
-		this.checkoutPDP = checkoutPDP;
+	public void setNgayraPDP(Date ngayraPDP) {
+		this.ngayraPDP = ngayraPDP;
 	}
 
 	public int getSodemPDP() {
@@ -107,8 +118,10 @@ public class PhieuDatPhong {
 		return hanTraPDP;
 	}
 
-	public void setHanTraPDP(Date hanTraPDP) {
-		this.hanTraPDP = hanTraPDP;
+	public void setHanTraPDP(Date hantra) {
+		
+		 this.hanTraPDP=hantra;
+	
 	}
 
 	public String getTenDK() {
@@ -135,14 +148,7 @@ public class PhieuDatPhong {
 		this.emailDK = emailDK;
 	}
 
-	public String getSdtDK() {
-		return sdtDK;
-	}
-
-	public void setSdtDK(String sdtDK) {
-		this.sdtDK = sdtDK;
-	}
-
+	
 	public int getKtthanhtoan() {
 		return ktthanhtoan;
 	}
@@ -163,4 +169,31 @@ public class PhieuDatPhong {
 		return maPDP;
 	}
 
+	
+	public HinhThucThanhToan getHinhthuctt() {
+		return hinhthuctt;
+	}
+
+	public void setHinhthuctt(HinhThucThanhToan hinhthuctt) {
+		this.hinhthuctt = hinhthuctt;
+	}
+
+	public Date getNgaydatPDP() {
+		return ngaydatPDP;
+	}
+
+	public void setNgaydatPDP(Date ngaydatPDP) {
+		this.ngaydatPDP = ngaydatPDP;
+	}
+
+	public int getKtnhanphong() {
+		return ktnhanphong;
+	}
+
+	public void setKtnhanphong(int ktnhanphong) {
+		this.ktnhanphong = ktnhanphong;
+	}
+
+	
+	
 }

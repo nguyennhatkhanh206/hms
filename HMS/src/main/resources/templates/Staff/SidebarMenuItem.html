@@ -4,16 +4,26 @@
 	<ul class="nav navbar-nav side-nav">
 		<li class="active"><a href="StaffManager.html"
 			th:href="StaffManager.html"><i class="fa fa-fw fa-dashboard"></i>
-				Room Management</a></li>
-		<li><a href="NhanVien.html" th:href="NhanVien.html"><i
-				class="fa fa-fw fa-bar-chart-o"></i> Staff Management </a></li>
+				Phòng</a></li>
+	    <li><a href="javascript:;" data-toggle="collapse"
+			data-target="#datphong"><i class="fa fa-fw fa-arrows-v"></i> Đặt phòng
+				<i class="fa fa-fw fa-caret-down"></i></a>
+			<ul id="datphong" class="collapse">
+				<li><a  href="PhieuDatPhong.html" th:href="PhieuDatPhong.html">Đạt phòng đã thanh toán</a></li>
+				<li><a href="#">Đặt phòng tới hẹn</a></li>
+			</ul>
+		</li>
+		 <li><a href="javascript:;" data-toggle="collapse"
+			data-target="#thuephong"><i class="fa fa-fw fa-arrows-v"></i> Phiếu thuê phòng
+				<i class="fa fa-fw fa-caret-down"></i></a>
+			<ul id="thuephong" class="collapse">
+				<li><a  href="PhieuThuePhongKL.html" th:href="PhieuThuePhongKL.html">Khách lẻ</a></li>
+				<li><a href="PhieuThuePhongD.html" th:href="PhieuThuePhongD.html">Khách đoàn</a></li>
+			</ul>
+		</li>
+		<li><a href="DoanKhach.html" th:href="DoanKhach.html"><i
+				class="fa fa-fw fa-bar-chart-o"></i> Đoàn khách </a></li>
 		<li><a href="LoaiPhong.html"><i class="fa fa-fw fa-desktop"></i>
-				Kind of room Management</a></li>
-		<li><a href="Phong.html"><i class="fa fa-fw fa-desktop"></i>
-				Room Management</a></li>
-
-		<li><a href="Prices.html" th:href="Prices.html"><i
-				class="fa fa-fw fa-wrench"></i> Prices Management</a></li>
-
+				Báo cáo-Thống kê</a></li>
 	</ul>
 </div>

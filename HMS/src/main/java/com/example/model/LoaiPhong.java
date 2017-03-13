@@ -99,6 +99,8 @@ public class LoaiPhong implements Serializable {
 	public List<Phong> getPhong() {
 		return phong;
 	}
+	
+	
 
 	public void setPhong(List<Phong> phong) {
 		this.phong = phong;

@@ -27,14 +27,12 @@ public class Phong implements Serializable {
 	@JoinColumn(name = "maLP")
 	private LoaiPhong loaiphong;
 
-	
-	
-	@ManyToMany(mappedBy="phong")
-	private List<PhieuDatPhong> phieudatphong=new ArrayList<PhieuDatPhong>();
-		
-	@OneToMany(mappedBy = "phong", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<PhieuThuePhong> phieuthuephong=new ArrayList<PhieuThuePhong>();
+	@ManyToMany(mappedBy = "phong",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<PhieuDatPhong> phieudatphong = new ArrayList<PhieuDatPhong>();
 
+	@OneToMany(mappedBy = "phong", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<PhieuThuePhong> phieuthuephong = new ArrayList<PhieuThuePhong>();
+    
 	public Phong() {
 		super();
 	}
@@ -65,8 +63,8 @@ public class Phong implements Serializable {
 	public int getMaLP() {
 		return loaiphong.getMaLP();
 	}
-	
-	public String getTenLP(){
+
+	public String getTenLP() {
 		return loaiphong.getTenLP();
 	}
 
@@ -74,7 +72,4 @@ public class Phong implements Serializable {
 		this.loaiphong = loaiphong;
 	}
 
-	
-
-	
 }

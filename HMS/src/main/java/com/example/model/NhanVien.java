@@ -38,9 +38,14 @@ public class NhanVien {
 	@OneToMany(mappedBy = "nhanvien", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<PhieuThuePhong> phieuthuephong=new ArrayList<PhieuThuePhong>();
 	
-	@OneToMany(mappedBy="nhanvien")
+	@OneToMany(mappedBy="nhanvien",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<PhieuHuyPhong> phieuhuyphong=new ArrayList<PhieuHuyPhong>();
 
+	@OneToMany(mappedBy="nhanvien")
+	private List<PhieuNhanPhong> phieunhanphong=new ArrayList<PhieuNhanPhong>();
+	
+	@OneToMany(mappedBy="nhanvien",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<HoaDon> hoadon=new ArrayList<HoaDon>();
 	public NhanVien() {
 		super();
 	}

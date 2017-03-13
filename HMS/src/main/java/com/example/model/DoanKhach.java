@@ -13,7 +13,7 @@ public class DoanKhach {
 
 	@Id
 	@GeneratedValue
-	private int idD;
+	private int maDK;
 	
 	@NotNull
 	private String tenD;
@@ -33,13 +33,31 @@ public class DoanKhach {
 	@NotNull
 	private String sdtD;
 	
-	@ManyToMany(mappedBy="doankhach")
+	
+
+	@ManyToMany(mappedBy = "doankhach", cascade =CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<PhieuThuePhong> phieuthuephong =new ArrayList<PhieuThuePhong>();
+	
+
+	@ManyToMany
+	@JoinTable(name = "DSDoankhach",joinColumns = @JoinColumn(name = "maDK"), inverseJoinColumns = @JoinColumn(name = "cmndKH"))
 	private List<KhachHang> khachhang=new ArrayList<KhachHang>();
 
 	public DoanKhach() {
 		super();
 	}
 
+	public DoanKhach(String tenD, String tenTruongD, String cmndD, String tinhThanhD, String emailD, String sdtD) {
+		super();
+		this.tenD = tenD;
+		this.tenTruongD = tenTruongD;
+		this.cmndD = cmndD;
+		this.tinhThanhD = tinhThanhD;
+		this.emailD = emailD;
+		this.sdtD = sdtD;
+	
+	}
+	
 	public DoanKhach(String tenD, String tenTruongD, String cmndD, String tinhThanhD, String emailD, String sdtD,
 			List<KhachHang> khachhang) {
 		super();
@@ -49,6 +67,20 @@ public class DoanKhach {
 		this.tinhThanhD = tinhThanhD;
 		this.emailD = emailD;
 		this.sdtD = sdtD;
+		this.khachhang = khachhang;
+	}
+	
+	
+	public DoanKhach(String tenD, String tenTruongD, String cmndD, String tinhThanhD, String emailD, String sdtD,
+			List<PhieuThuePhong> phieuthuephong, List<KhachHang> khachhang) {
+		super();
+		this.tenD = tenD;
+		this.tenTruongD = tenTruongD;
+		this.cmndD = cmndD;
+		this.tinhThanhD = tinhThanhD;
+		this.emailD = emailD;
+		this.sdtD = sdtD;
+		this.phieuthuephong = phieuthuephong;
 		this.khachhang = khachhang;
 	}
 
@@ -108,9 +140,12 @@ public class DoanKhach {
 		this.khachhang = khachhang;
 	}
 
-	public int getIdD() {
-		return idD;
+	public int getMaDK() {
+		return maDK;
 	}
+
+	
+	
 
 	
 }

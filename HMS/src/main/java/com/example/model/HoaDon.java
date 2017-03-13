@@ -13,7 +13,7 @@ public class HoaDon {
 	@Id
 	@GeneratedValue
 	private int maHD;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "maPTP")
 	private PhieuThuePhong phieuthuephong;
@@ -23,24 +23,40 @@ public class HoaDon {
 	private long tongtien;
 	
 	@NotNull
-	private long khachtra;
+	private long tienphong;
 	
+	@NotNull
+	private long khuyenmai;
 	
+	@NotNull
+	private long phuthu;
+
+	@NotNull
+	private int ktthanhtoan;
+
+	@ManyToOne
+	@JoinColumn(name = "maHTTT")
+	private HinhThucThanhToan hinhthuctt;
+
+	@ManyToOne
+	@JoinColumn(name = "maNV")
+	private NhanVien nhanvien;
+
 	public HoaDon() {
 		super();
 	}
 
-	
-
-	public HoaDon(PhieuThuePhong phieuthuephong, Date ngayHD, long tongtien, long khachtra) {
+	public HoaDon(PhieuThuePhong phieuthuephong, Date ngayHD, long tongtien, long khachtra,long khuyenmai,
+			HinhThucThanhToan hinhthuctt, NhanVien nhanvien, int ktthanhtoan) {
 		super();
 		this.phieuthuephong = phieuthuephong;
 		this.ngayHD = ngayHD;
 		this.tongtien = tongtien;
-		this.khachtra = khachtra;
+		this.hinhthuctt = hinhthuctt;
+		this.nhanvien = nhanvien;
+		this.khuyenmai=khuyenmai;
+		this.ktthanhtoan=ktthanhtoan;
 	}
-
-
 
 	public PhieuThuePhong getPhieuthuephong() {
 		return phieuthuephong;
@@ -63,23 +79,59 @@ public class HoaDon {
 	}
 
 	public void setTongtien(long tongtien) {
-		this.tongtien = tongtien;
+		this.tongtien = tienphong+phuthu;
+	}
+
+	public HinhThucThanhToan getHinhthuctt() {
+		return hinhthuctt;
+	}
+
+	public void setHinhthuctt(HinhThucThanhToan hinhthuctt) {
+		this.hinhthuctt = hinhthuctt;
+	}
+
+	public NhanVien getNhanvien() {
+		return nhanvien;
+	}
+
+	public void setNhanvien(NhanVien nhanvien) {
+		this.nhanvien = nhanvien;
+	}
+
+	public long getTienphong() {
+		return tienphong;
+	}
+
+	public void setTienphong(long tienphong) {
+		this.tienphong = tienphong;
+	}
+
+	public long getPhuthu() {
+		return phuthu;
+	}
+
+	public void setPhuthu(long phuthu) {
+		this.phuthu = phuthu;
+	}
+
+	public int getKtthanhtoan() {
+		return ktthanhtoan;
+	}
+
+	public void setKtthanhtoan(int ktthanhtoan) {
+		this.ktthanhtoan = ktthanhtoan;
 	}
 
 	public int getMaHD() {
 		return maHD;
 	}
 
-
-
-	public long getKhachtra() {
-		return khachtra;
+	public long getKhuyenmai() {
+		return khuyenmai;
 	}
 
-
-
-	public void setKhachtra(long khachtra) {
-		this.khachtra = khachtra;
+	public void setKhuyenmai(long khuyenmai) {
+		this.khuyenmai = khuyenmai;
 	}
 	
 	

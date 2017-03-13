@@ -10,12 +10,12 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "KhachHang")
 public class KhachHang {
+	
 	@Id
 	private String cmndKH;
 
 	@NotNull
 	private String hoTenKH;
-
 
 	@NotNull
 	private String queQuanKH;
@@ -26,20 +26,18 @@ public class KhachHang {
 	@NotNull
 	private int tichluyKH;
 
-	@ManyToMany
-	@JoinTable(name = "DSDoan", joinColumns = @JoinColumn(name = "maKH"), inverseJoinColumns = @JoinColumn(name = "maDK"))
+
+	@ManyToMany(mappedBy = "khachhang", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<DoanKhach> doankhach = new ArrayList<DoanKhach>();
-	
-	
-	@ManyToMany(mappedBy="khachhang")
+
+	@ManyToMany(mappedBy = "khachhang", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<PhieuThuePhong> phieuthuephong = new ArrayList<PhieuThuePhong>();
-	
+
 	public KhachHang() {
 		super();
 	}
 
-	public KhachHang(String hoTenKH, String cmndKH, String queQuanKH, String sdtKH, Date ngaysinhKH,
-			int tichluyKH) {
+	public KhachHang(String hoTenKH, String cmndKH, String queQuanKH, String sdtKH, Date ngaysinhKH, int tichluyKH) {
 		super();
 		this.hoTenKH = hoTenKH;
 		this.cmndKH = cmndKH;
@@ -47,6 +45,7 @@ public class KhachHang {
 		this.sdtKH = sdtKH;
 		this.tichluyKH = tichluyKH;
 	}
+
 
 	public String getHoTenKH() {
 		return hoTenKH;
@@ -87,6 +86,5 @@ public class KhachHang {
 	public void setTichluyKH(int tichluyKH) {
 		this.tichluyKH = tichluyKH;
 	}
-
 
 }

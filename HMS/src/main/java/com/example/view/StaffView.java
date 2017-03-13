@@ -17,4 +17,19 @@ public class StaffView {
 	public String thuephong(){
 		return "PhieuThuePhong";
 	}
+	
+	@RequestMapping("/PhieuDatPhong")
+	public String datphong(){
+		return "PhieuDatPhong";
+	}
+	@RequestMapping("/DoanKhach")
+	public String doankhach(){
+		return "DoanKhach";
+	}
+	
+	@RequestMapping("/PhieuThuePhongKL")
+	public String thuephongkl(){
+		return "PhieuThuePhongKL";
+	}
+	
 }

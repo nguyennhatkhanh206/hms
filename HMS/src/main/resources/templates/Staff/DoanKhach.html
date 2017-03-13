@@ -1,0 +1,671 @@
+<div class="container-fluid" data-th-fragment="DoanKhach">
+
+	<div class="table-responsive">
+		<button class="btn btn-default btn-xs btn-detail"
+			ng-click="btnthemdoan()">Thêm đoàn</button>
+		<!-- Display bookings in a table -->
+		<table class="table table-hover table-striped">
+			<thead>
+				<tr>
+
+					<th>Tên đoàn</th>
+					<th>Trưởng đoàn</th>
+					<th>Cmnd</th>
+					<th>Tỉnh thành</th>
+					<th>Email</th>
+					<th>Số điện thoại</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="d in dsdoan">
+					<td>{{d.tenD}}</td>
+					<td>{{d.tenTruongD}}</td>
+					<td>{{d.cmndD}}</td>
+					<td>{{d.tinhThanhD}}</td>
+					<td>{{d.emailD}}</td>
+					<td>{{d.sdtD}}</td>
+
+					<td>
+						<button class="btn btn-default btn-xs btn-detail" id="btn-edit"
+							ng-click="khachdoan(d.maDK)">Thành viên</button>
+						<button class="btn btn-danger btn-xs btn-delete"
+							ng-click="btnsuadoan(d.maDK)">Sửa</button>
+						<button class="btn btn-danger btn-xs btn-delete"
+							ng-click="btnxoadoan(d.maDK)" id="btn-xoa">Xóa</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="modal fade" id="doanKhach" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Danh sách khách</h4>
+				</div>
+				<div class="modal-body">
+					<div class="alert alert-success alert-dismissible" id="myAlert"
+						ng-hide="capnhat" ng-init="capnhat=true">
+						<a href="#" class="close">&times;</a> <strong>Cập nhật
+							thành công!</strong>
+
+					</div>
+					<div class="alert alert-success alert-dismissible" id="myAlert"
+						ng-hide="them" ng-init="them=true">
+						<a href="#" class="close">&times;</a> <strong>Thêm thành
+							công!</strong>
+
+					</div>
+					<div class="alert alert-success alert-dismissible" id="myAlert"
+						ng-hide="xoa" ng-init="xoa=true">
+						<a href="#" class="close">&times;</a> <strong>Xóa thành
+							công!</strong>
+					</div>
+					<div class="alert alert-success alert-dismissible" id="myAlert"
+						ng-hide="capnhat" ng-init="capnhat=true">
+						<a href="#" class="close">&times;</a> <strong>Xóa thành
+							công!</strong>
+					</div>
+
+
+					<button type="button" class="btn btn-primary"
+						ng-click="btnthemkhach()">Thêm khách</button>
+					<div class="table-responsive">
+						<!-- Display bookings in a table -->
+
+						<table class="table table-hover table-striped">
+							<thead>
+								<tr>
+
+									<th>CMND</th>
+									<th>Họ tên</th>
+									<th>Quê quán</th>
+									<th>Số điện thoại</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="pr in doan">
+									<td>{{pr.cmndKH}}</td>
+									<td>{{pr.hoTenKH}}</td>
+									<td>{{pr.queQuanKH}}</td>
+									<td>{{pr.sdtKH}}</td>
+									<td><a href="#" ng-click="chonsuakhach(pr.cmndKH)">Sửa</a>
+										| <a href="#" ng-click="xoakhach(pr.cmndKH)">Xóa</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Chọn sửa khách -->
+	<div class="modal fade" id="khach" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+				</div>
+				<div class="modal-body">
+					<form name="frmThuephong" class="form-horizontal">
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">Chứng
+								minh thư</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="cmnd" name="cmnd"
+									ng-model="khachhang.cmndKH" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmThuephong.cmnd.$error.required">Hãy nhập số
+									chứng minh nhân dân khách</span>
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">Họ
+								tên</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="hoten" name="hoten"
+									ng-model="khachhang.hoTenKH" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmThuephong.hoten.$error.required">Hãy nhập họ
+									tên khách</span>
+							</div>
+
+						</div>
+
+
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">Quê
+								quán</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="quequan"
+									name="quequan" ng-model="khachhang.queQuanKH"
+									ng-required="true" /> <span id="helpBlock2" class="help-block"
+									ng-show="frmThuephong.quequan.$error.required">Hãy nhập
+									quê quán khách</span>
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">Số
+								điện thoại</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="sdt" name="sdt"
+									ng-model="khachhang.sdtKH" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmThuephong.sdt.$error.required">Hãy nhập số
+									điện thoại khách</span>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+					<button type="button" class="btn btn-primary"
+						ng-click="luukhach(khachhang.cmndKH)">Lưu</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Kêt thúc chọn sửa khách -->
+	<!-- Sửa thông tin đoàn -->
+	<div class="modal fade" id="suattDoan" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Sửa thông tin đoàn</h4>
+				</div>
+				<div class="modal-body">
+					<form name="frmThemphong" class="form-horizontal">
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">Tên
+								đoàn</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="tendoan"
+									name="tendoan" ng-model="doan.tenD" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmThemphong.tendoan.$error.required">Hãy nhập
+									tên đoàn</span>
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">Tỉnh
+								thành</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="tinhthanh"
+									name="tinhthanh" ng-model="doan.tinhThanhD" ng-required="true" />
+								<span id="helpBlock2" class="help-block"
+									ng-show="frmThemphong.tinhthanh.$error.required">Hãy
+									nhập tỉnh thành của đoàn</span>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">Trưởng
+								đoàn</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="truongdoan"
+									name="truongdoan" ng-model="doan.tenTruongD" ng-required="true" />
+								<span id="helpBlock2" class="help-block"
+									ng-show="frmThemphong.truongdoan.$error.required">Hãy
+									nhập tên trưởng đoàn</span>
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">Chứng
+								minh thư</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="chungminh"
+									name="chungminh" ng-model="doan.cmndD" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmThemphong.chungminh.$error.required">Hãy
+									chứng minh thư trưởng đoàn</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="email" name="email"
+									ng-model="doan.emailD" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmThemphong.email.$error.required">Hãy email
+									trưởng đoàn</span>
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">Số
+								điện thoại</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="sdt" name="sdt"
+									ng-model="doan.sdtD" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmThemphong.sdt.$error.required">Hãy nhập số
+									điện thoại khách</span>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+					<button type="button" class="btn btn-primary"
+						ng-click="suattdoan()">Lưu</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Kết thúc sửa thông tin đoàn -->
+	<!-- Tạo thông tin đoàn -->
+	<div class="modal fade" id="ttDoan" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+				</div>
+				<div class="modal-body">
+					<form name="frmThemphong" class="form-horizontal">
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">Tên
+								đoàn</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="tendoan"
+									name="tendoan" ng-model="doan.tenD" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmThemphong.tendoan.$error.required">Hãy nhập
+									tên đoàn</span>
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">Tỉnh
+								thành</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="tinhthanh"
+									name="tinhthanh" ng-model="doan.tinhThanhD" ng-required="true" />
+								<span id="helpBlock2" class="help-block"
+									ng-show="frmThemphong.tinhthanh.$error.required">Hãy
+									nhập tỉnh thành của đoàn</span>
+							</div>
+
+						</div>
+
+
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">Trưởng
+								đoàn</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="truongdoan"
+									name="truongdoan" ng-model="doan.tenTruongD" ng-required="true" />
+								<span id="helpBlock2" class="help-block"
+									ng-show="frmThemphong.truongdoan.$error.required">Hãy
+									nhập tên trưởng đoàn</span>
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">Chứng
+								minh thư</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="chungminh"
+									name="chungminh" ng-model="doan.cmndD" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmThemphong.chungminh.$error.required">Hãy
+									chứng minh thư trưởng đoàn</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="email" name="email"
+									ng-model="doan.emailD" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmThemphong.email.$error.required">Hãy email
+									trưởng đoàn</span>
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">Số
+								điện thoại</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="sdt" name="sdt"
+									ng-model="doan.sdtD" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmThemphong.sdt.$error.required">Hãy nhập số
+									điện thoại khách</span>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+					<button type="button" class="btn btn-primary" ng-click="tieptuc()">Tiếp
+						tục</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Kết thúc tạo thông tin đoàn -->
+	<div class="modal fade" id="themKhach" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+				</div>
+				<div class="modal-body">
+					<div class="alert alert-danger" ng-hide="capnhat"
+						ng-init="capnhat=true">
+						<strong>Lỗi!</strong> Khách bị trùng.
+					</div>
+
+					<form name="frmThuephong" class="form-horizontal">
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">CMND</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="cmndKH"
+									name="cmndKH" ng-model="cmndKH" ng-change="ktkhach(cmndKH)"
+									ng-required="true" /> <span id="helpBlock2" class="help-block"
+									ng-show="frmThuephong.cmndKH.$error.required">Hãy nhập
+									số chứng minh nhân dân khách</span>
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">Họ
+								tên</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="hoten" name="hoten"
+									ng-model="khachhang.hoTenKH" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmThuephong.hoten.$error.required">Hãy nhập họ
+									tên khách</span>
+							</div>
+
+						</div>
+
+
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">Quê
+								quán</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="quequan"
+									name="quequan" ng-model="khachhang.queQuanKH"
+									ng-required="true" /> <span id="helpBlock2" class="help-block"
+									ng-show="frmThuephong.quequan.$error.required">Hãy nhập
+									quê quán khách</span>
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">Số
+								điện thoại</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="sdt" name="sdt"
+									ng-model="khachhang.sdtKH" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmThuephong.sdt.$error.required">Hãy nhập số
+									điện thoại khách</span>
+							</div>
+						</div>
+					</form>
+
+					<div>
+						<center>
+							<button type="button" class="btn btn-primary"
+								ng-disabled="frmThuePhong.$invalid" ng-click="themkhach()">Thêm
+								khách</button>
+						</center>
+					</div>
+					<div class="table-responsive">
+						<!-- Display bookings in a table -->
+						<table class="table table-hover table-striped">
+							<thead>
+								<tr>
+
+									<th>CMND</th>
+									<th>Họ tên</th>
+									<th>Quê quán</th>
+									<th>Số điện thoại</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="pr in listthemkhach">
+									<td>{{pr.cmndKH}}</td>
+									<td>{{pr.hoTenKH}}</td>
+									<td>{{pr.queQuanKH}}</td>
+									<td>{{pr.sdtKH}}</td>
+									<td><a href="#" ng-click="chonxoakhach(pr.cmndKH)">Xóa</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+					<button type="button" class="btn btn-primary"
+						ng-click="luudoan(listthemkhach)">Lưu</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Kết thúc việc tạo đoàn -->
+	<!-- Thêm khách -->
+	<div class="modal fade" id="themttDoan" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" ng-click="thoat()"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+				</div>
+				<div class="modal-body">
+					<div class="alert alert-danger alert-dismissible" id="myAlert"
+						ng-hide="themtrung" ng-init="themtrung=true">
+						<a href="#" class="close">&times;</a> <strong>Lỗi!</strong>Khách
+						hàng này đã có tên trong đoàn
+
+					</div>
+					<div class="alert alert-success alert-dismissible" id="myAlert"
+						ng-hide="themmoi" ng-init="themmoi=true">
+						<a href="#" class="close">&times;</a> <strong>Đã thêm
+							thành công</strong>
+					</div>
+					<form name="frmThuephong" class="form-horizontal">
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">CMND</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="cmnd" name="cmnd"
+									ng-model="khachhang.cmndKH" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmThuephong.cmnd.$error.required">Hãy nhập số
+									chứng minh nhân dân khách</span>
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">Họ
+								tên</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="hoten" name="hoten"
+									ng-model="khachhang.hoTenKH" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmThuephong.hoten.$error.required">Hãy nhập họ
+									tên khách</span>
+							</div>
+
+						</div>
+
+
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">Quê
+								quán</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="quequan"
+									name="quequan" ng-model="khachhang.queQuanKH"
+									ng-required="true" /> <span id="helpBlock2" class="help-block"
+									ng-show="frmThuephong.quequan.$error.required">Hãy nhập
+									quê quán khách</span>
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">Số
+								điện thoại</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="sdt" name="sdt"
+									ng-model="khachhang.sdtKH" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmThuephong.sdt.$error.required">Hãy nhập số
+									điện thoại khách</span>
+							</div>
+						</div>
+					</form>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" ng-click="thoat()">Thoát</button>
+					<button type="button" class="btn btn-primary"
+						ng-click="themktt('luuthem')">Lưu và Thêm</button>
+					<button type="button" class="btn btn-primary"
+						ng-click="themktt('luu')">Lưu</button>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+	<!--Danh sách khách  -->
+	<div class="modal fade" id="thueDoan" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" ng-click="thoat()"
+						aria-label="Close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Phiếu thuê phòng</h4>
+				</div>
+				<div class="modal-body">
+					<form name="frmThuephong" class="form-horizontal">
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">Ngày
+								thuê</label>
+							<div class="col-sm-4">
+								<input type="datetime-local" class="form-control" id="ngayBD"
+									name="ngayBD" ng-model="ngayBD" ng-required="true" />
+
+
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">Ngày
+								trả phòng</label>
+							<div class="col-sm-4">
+								<input type="datetime-local" class="form-control" id="ngayTP"
+									name="ngayTP" ng-model="ngayTP" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmThuephong.ngayTP.$error.required">Hãy nhập
+									ngày trả phòng</span> <span id="helpBlock2" class="help-block"
+									ng-show="frmThuephong.ngayTP.$error.datetime">Định dạng
+									ngày tháng sai</span>
+
+							</div>
+
+						</div>
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">Loại
+								thuê</label>
+							<div class="col-sm-4">
+								<select class="form-control" ng-model="loaithue">
+									<option value="1">Giờ</option>
+									<option value="2">Đêm</option>
+								</select>
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">Tiền
+								đã trả</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="tiendatra"
+									name="tiendatra" ng-model="tiendatra" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmThuephong.tiendatra.$error.required">Hãy
+									nhập họ tên khách</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">Ghi
+								chú</label>
+							<div class="col-sm-7">
+								<textarea class="form-control" rows="3" id="ghichu"
+									ng-model="ghichu"></textarea>
+							</div>
+						</div>
+						
+					</form>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+					<button type="button" class="btn btn-primary"
+						ng-disabled="frmThuephong.$invalid" ng-click="tieptuctp()">Tiếp tục </button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="dsk" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" ng-click="thoat()"
+						aria-label="Close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Phiếu thuê phòng</h4>
+				</div>
+				<div class="modal-body">
+					<form name="frmThuephong" class="form-horizontal">
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">Phòng thuê</label>
+							<div class="col-sm-4">
+								<select class="form-control" ng-model="phongthue">
+									<option ng-repeat="item in dsphong" value="{{item.maP}}">{{item.maP}}</option>
+								</select>
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">Khách phòng</label>
+							<div class="col-sm-4">
+								<select class="form-control" ng-model="khachthue" multiple="multiple">
+									<option ng-repeat="item in dskhachhang" value="{{item.cmndKH}}">Chứng minh thư: {{item.cmndKH}} Họ tên: {{item.hoTenKH}}</option>
+								</select>
+							</div>
+							
+						</div>
+		
+						
+					</form>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+					<button type="button" class="btn btn-primary"
+						ng-disabled="frmThuephong.$invalid" ng-click="luuthuephongtt()">Lưu và tiếp tục </button>
+					<button type="button" class="btn btn-primary"
+						ng-disabled="frmThuephong.$invalid" ng-click="luuphieuthue()">Lưu </button>
+				</div>
+			</div>
+		</div>
+	</div>
+   
+</div>
+
+
+
+
+

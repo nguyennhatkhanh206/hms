@@ -6,7 +6,10 @@ app.controller('pController', function($scope, $http, API) {
 	$http.get('/loaiphong/list').success(function(response) {
 		$scope.loaiphongs = response;
 	});
-
+	
+	 $http.get('/httt/list').success(function(response) {
+         $scope.dsachhttt=response;	
+	 });
 	$scope.ngayvao = new Date();
 	$scope.modal = function(state, idP) {
 		$scope.state = state;
@@ -236,6 +239,7 @@ app.controller('pController', function($scope, $http, API) {
 
 			{
 				"ngayBD" : $scope.ngayvao,
+				"ngayTP" : $scope.ngayra,
 				"loaithue" : $scope.loaithue,
 				"tiendatra" : $scope.tiendatra,
 				"ghiChu" : $scope.ghichu,
@@ -315,4 +319,188 @@ app.controller('pController', function($scope, $http, API) {
 
 	}
 
+	$scope.btntraphong=function(id){
+	$scope.ngaytao=new Date();
+	$http.get('/phieuthuephong/sophieu/' + id).success(function(response) {
+	  $scope.sp=response;	
+	  $http.get('/phieuthuephong/dsphong/' + id).success(function(response) {
+		   		           $scope.p=response;	
+		   		           $scope.sophieu=$scope.p[$scope.sp-1].maPTP;
+		   		           $scope.phieuthue=$scope.p[$scope.sp-1];
+		   		           $scope.phieuthue.ngayBD = new Date($scope.phieuthue.ngayBD);
+		   		        $scope.phieuthue.ngayTP = new Date($scope.phieuthue.ngayTP);
+		   		      $http.get('/loaiphong/update/' + $scope.phieuthue.phong.maLP).success(function(response) {
+		   		   	  $scope.loaiphong=response; 
+		   		          $http.get('/dongia/update/' + $scope.loaiphong.maDG).success(function(response) {
+			   		   	  $scope.dongia=response; 
+			   		   	 
+			   		   	  if($scope.phieuthue.loaithue==2)
+			   		   		  {
+			   		   		  $scope.tongtien=$scope.dongia.giaGioDG * $scope.phieuthue.sogio;
+			   		   		  }
+			   		   	  else
+			   		   	      $scope.tongtien=$scope.dongia.giaDemDG * $scope.phieuthue.sodem;
+			   		   	  
+			   		     }); 
+		   		          
+		   		          
+		   		      });
+		   		     
+		   		});    
+		});
+	$("#hoadon").modal('show');
+	
+	}
+	$scope.btnchuyenphong=function(id)
+	{
+		$scope.maP=id;
+		$http.get('/phieuthuephong/sophieu/' + id).success(function(response) {
+			  $scope.sp=response;	
+			  $http.get('/phieuthuephong/dsphong/' + id).success(function(response) {
+				   		           $scope.p=response;	
+				   		           $scope.sophieu=$scope.p[$scope.sp-1].maPTP;
+				   		           $scope.phieuthue=$scope.p[$scope.sp-1];
+				   		           $scope.sp.push(
+
+				   		        		{
+				   		        		ngayBD : $scope.phieuthue.ngayBD,
+				   		 				ngayTP:$scope.phieuthue.ngayTP,
+				   		 				loaithue : $scope.phieuthue.loaithue,
+				   		 				tiendatra : $scope.phieuthue.tiendatra,
+				   		 				ghiChu : $scope.phieuthue.ghiChu,
+				   		 				khachhang: $scope.phieuthue.khachhang,
+				   		        		});
+			  });
+		});
+		$http.get('/phong/trangthai/grey').success(function(response) {
+			  $scope.dsphong=response;	
+		})
+		$("#chuyenphong").modal('show');
+	}
+	
+	$scope.chuyenphong=function()
+	{
+		
+		var url = '/phieuthuephong/update/' + $scope.phieuthue.maPTP +'/'+$scope.phongchuyen;
+		$http({
+
+			method : 'POST',
+			url : url,
+			data : JSON.stringify(
+
+			{
+				
+				
+			}),
+			headers : {
+				'Accept' : 'application/json',
+				'Content-Type' : 'application/json'
+			}
+
+		}).success(function(response) {
+			var urlK = '/phong/update/' + $scope.maP;
+			$http({
+
+				method : 'POST',
+				url : urlK,
+				data : JSON.stringify(
+
+				{
+					"trangThaiP" : "grey"
+					
+				}),
+				headers : {
+					'Accept' : 'application/json',
+					'Content-Type' : 'application/json'
+				}
+
+			}).success(function(response) {
+				var urlK = '/phong/update/' + $scope.phongchuyen;
+				$http({
+
+					method : 'POST',
+					url : urlK,
+					data : JSON.stringify(
+
+					{
+						"trangThaiP" : "red"
+						
+					}),
+					headers : {
+						'Accept' : 'application/json',
+						'Content-Type' : 'application/json'
+					}
+
+				}).success(function(response) {
+			        location.reload();	
+				}).error(function(response) {
+					alert("Xay ra loi!");
+				});			
+			}).error(function(response) {
+				alert("Xay ra loi!");
+			});		
+		}).error(function(response) {
+			alert("Xay ra loi!");
+		});
+	}
+     $scope.dondep=function(id)
+     {
+    	 var urlK = '/phong/update/' + id;
+			$http({
+
+				method : 'POST',
+				url : urlK,
+				data : JSON.stringify(
+
+				{
+					"trangThaiP" : "grey"
+					
+				}),
+				headers : {
+					'Accept' : 'application/json',
+					'Content-Type' : 'application/json'
+				}
+
+			}).success(function(response) {
+		        location.reload();	
+			}).error(function(response) {
+				alert("Xay ra loi!");
+			});			
+      }
+     
+     $scope.traphong=function(id){
+    
+    	 console.log($scope.phieuthue);
+    	 $scope.tongtientong=$scope.tongtien *((100-$scope.khuyenmai)/100) + $scope.phieuthue.quaGio + $scope.phuthu;
+    	 $http.get('/httt/update/' + $scope.httt).success(function(response) {
+		           $scope.hinhthuc=response;	   
+    	
+    	 var urlK = '/hoadon/add/'+$scope.phieuthue.maPTP;
+			$http({
+
+				method : 'POST',
+				url : urlK,
+				data : JSON.stringify(
+
+				{
+					"ngayHD" : $scope.ngaytao,
+					"tongtien": $scope.tongtientong,
+					"tienphong":$scope.tongtien,
+					"phuthu":$scope.phuthu,
+					"khuyenmai":$scope.khuyenmai,
+					"ktthanhtoan":1,
+					"hinhthuctt":$scope.hinhthuc
+					
+				}),
+				headers : {
+					'Accept' : 'application/json',
+					'Content-Type' : 'application/json'
+				}
+
+			}).success(function(response) {
+		        location.reload();	
+			});
+		           
+    	  })
+     }
 });

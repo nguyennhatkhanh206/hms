@@ -1,3 +1,6 @@
+.{
+backgound:black;
+}
 .top-bar{
 	background:#F5F5F5;
 	padding:5px 0px;
@@ -9,11 +12,9 @@
 
 .top-links button{
 border-radius:0px;
+margin-right:5px;
 }
 
-.top-links{
-	padding-right:10px;
-}
 
 .main-nav{
 	background:#1E1E21;
@@ -82,9 +83,9 @@ span.home-icon{
 .home-quote{
 	margin-top:10px;
 	padding:8px 0px;
-	border-top:1px solid #00A2D7;
-	border-bottom:1px solid #00A2D7;
-	font-style:Bold;
+	border-top:2px solid #00A2D7;
+	border-bottom:2px solid #00A2D7;
+	font-style:bold;
 	text-align:center;	
 	font-size:20px;
 	color: #0000ff;
@@ -96,15 +97,30 @@ span.home-icon{
 }
 
 .home-row{
-	margin-top:20px;	
+	padding-left:40px;
+	background: #c8cbce;
+	margin-right:2px;
+	margin-left:2px;
 	
 }
 
 .home-rw{
-	margin-left:40px;	
-	margin-top:20px;
+	margin-right:40px;
+	margin-left:40px;
+    margin-top:10px;	
+		
+	
+
 }
 
+.datphong
+{
+	    background:#bdc4f0;
+		padding-left:55px;
+		padding-right:55px;
+		margin-bottom:10px;
+	
+}
 
 #home-sub-nav{
 	margin-top:20px;
@@ -130,7 +146,7 @@ span.home-search{
 }
 
 #main{
-	padding-top:30px;
+	padding-top:5px;
 }
 
 .div-table{
@@ -153,4 +169,11 @@ span.home-search{
 	
 	height:150px;
 	width:150px;
+}
+
+//Phiếu đặt phòng
+.datphongtitle
+{
+	background: #0080ff;
+	color: white;
 }

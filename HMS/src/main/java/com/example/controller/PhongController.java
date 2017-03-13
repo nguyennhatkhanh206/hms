@@ -56,12 +56,26 @@ public class PhongController {
 		pRepository.save(pr);
 		return pRepository.findOne(id);
 	}
+	
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST, produces = "application/json;chaset=UTF-8")
+	public Phong postupdate(@RequestBody Phong prs, @PathVariable String id) {
+		Phong pr = pRepository.findOne(id);
+		pr.setTrangThaiP(prs.getTrangThaiP());
+		pRepository.save(pr);
+		return pRepository.findOne(id);
+	}
 
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public List<Phong> remove(@PathVariable String id) {
 		pRepository.delete(id);
 		return pRepository.findAll();
+
+	}
+	
+	@RequestMapping(value = "/trangthai/{id}", method = RequestMethod.GET)
+	public List<Phong> trangthai(@PathVariable String id) {
+		return pRepository.findAllByTrangThaiP(id);
 
 	}
 

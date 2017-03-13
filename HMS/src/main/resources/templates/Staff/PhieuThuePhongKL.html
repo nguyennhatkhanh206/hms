@@ -1,0 +1,231 @@
+<div class="container-fluid" data-th-fragment="PhieuThuePhongKL">
+	<button class="btn btn-default btn-xs btn-detail" id="btn-edit"
+		ng-click="btntaophieu()">Tạo phiếu thuê</button>
+	<div class="table-responsive">
+		<!-- Display bookings in a table -->
+		<table class="table table-hover table-striped">
+			<thead>
+				<tr>
+
+					<th>Mã phiếu</th>
+					<th>Ngày thuê</th>
+					<th>Ngày trả</th>
+					<th>Loại thuê</th>
+					<th>Tiền đã trả</th>
+					<th>Ghi chú</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="dp in dsthuephong">
+					<td>{{dp.maPTP}}</td>
+					<td>{{dp.ngayBD | date:"hh:ss dd/MM/yyyy"}}</td>
+					<td>{{dp.ngayTP | date:"hh:ss dd/MM/yyyy"}}</td>
+					<td>{{dp.tenLT}}</td>
+					<td>{{dp.tiendatra}}</td>
+					<td>{{dp.ghiChu}}</td>
+					<td>
+						<button class="btn btn-default btn-xs btn-detail" id="btn-edit"
+							ng-click="nhan(dp.maPDP)">Phòng</button>
+						<button class="btn btn-danger btn-xs btn-delete"
+							ng-click="huy(dp.maPDP)">Cập nhật</button>		
+						<button class="btn btn-danger btn-xs btn-delete"
+							ng-click="huy(dp.maPDP)">Trả phòng</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- Lưu list khach -->
+		<div class="modal fade" id="themKhach" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+				</div>
+				<div class="modal-body">
+					<form name="frmThuephong" class="form-horizontal">
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">CMND</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="cmnd" name="cmnd"
+									ng-model="cmndKH" ng-required="true"
+									ng-change="checkkhach(cmndKH)" /> <span id="helpBlock2"
+									class="help-block" ng-show="frmThuephong.cmnd.$error.required">Hãy
+									nhập số chứng minh nhân dân khách</span>
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">Họ
+								tên</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="hoten" name="hoten"
+									ng-model="khachhang.hoTenKH" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmThuephong.hoten.$error.required">Hãy nhập họ
+									tên khách</span>
+							</div>
+
+						</div>
+
+
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">Quê
+								quán</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="quequan"
+									name="quequan" ng-model="khachhang.queQuanKH"
+									ng-required="true" /> <span id="helpBlock2" class="help-block"
+									ng-show="frmThuephong.quequan.$error.required">Hãy nhập
+									quê quán khách</span>
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">Số
+								điện thoại</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="sdt" name="sdt"
+									ng-model="khachhang.sdtKH" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmThuephong.sdt.$error.required">Hãy nhập số
+									điện thoại khách</span>
+							</div>
+						</div>
+					</form>
+
+					<div>
+						<center>
+							<button type="button" class="btn btn-primary"
+								ng-disabled="frmThuePhong.$invalid" ng-click="luukhach()">Thêm
+								khách</button>
+							<button type="button" class="btn btn-primary"
+								ng-disabled="frmThuePhong.$invalid" ng-click="suakhach()">Sửa khách</button>
+						</center>
+					</div>
+					<div class="table-responsive">
+						<!-- Display bookings in a table -->
+						<table class="table table-hover table-striped">
+							<thead>
+								<tr>
+
+									<th>CMND</th>
+									<th>Họ tên</th>
+									<th>Quê quán</th>
+									<th>Số điện thoại</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="pr in listkhach">
+									<td>{{pr.cmndKH}}</td>
+									<td>{{pr.hoTenKH}}</td>
+									<td>{{pr.queQuanKH}}</td>
+									<td>{{pr.sdtKH}}</td>
+									<td>
+									<a href="#" ng-click="chonsuakhach(pr.cmndKH)">Sửa</a> |
+									<a href="#" ng-click="xoakhach(pr.cmndKH)">Xóa</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+					<button type="button" class="btn btn-primary"
+						ng-click="tieptuc()">Tiếp tục</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End modal thêm khách vào phòng -->
+	<!-- Sửa khách -->
+	<!-- Nhận phòng -->
+	<div class="modal fade" id="nhanPhong" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Phiếu thuê phòng</h4>
+				</div>
+				<div class="modal-body">
+					<form name="frmNhankhach" class="form-horizontal">
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">Phòng</label>
+							<div class="col-sm-5">
+								<select class="form-control" ng-model="dsphong">
+									
+										<option  ng-repeat="item in dsloaiphong" value="{{item.maP}}">Mã phòng: <b>{{item.maP}} </b>   - Loại phòng: <b>{{item.tenLP}}</b></option>
+								
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">Ngày
+								vào</label>
+							<div class="col-sm-4">
+								<input type="date" class="form-control" id="ngayvao"
+									name="ngayvao" ng-model="ngayvao" disabled="disabled"
+									ng-required="true" />
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">Ngày
+								ra</label>
+							<div class="col-sm-4">
+								<input type="date" class="form-control" id="ngayra"
+									name="ngayra" ng-model="ngayra" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmNhankhach.ngayra.$error.required">Hãy nhập
+									ngày ra</span>
+							</div>
+
+						</div>
+
+
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">Tiền
+								đã trả</label>
+							<div class="col-sm-4">
+								<input type="number" class="form-control" id="tiendatra" value="0"
+									name="tiendatra" ng-model="tiendatra" ng-required="true" /> <span
+									id="helpBlock2" class="help-block"
+									ng-show="frmNhankhach.tiendatra.$error.required">Hãy
+									nhập tiền đã trả của khách</span>
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">Loại
+								thuê</label>
+							<div class="col-sm-4">
+								<select class="form-control" ng-model="loaithue" >
+									<option value="1" selected="selected" >Giờ</option>
+									<option value="2">Đêm</option>
+								</select>
+							</div>
+
+						</div>
+						<div class="form-group">
+
+							<label for="inputEmail3" class="col-sm-2 control-label">Ghi
+								chú</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" id="ghichu" name="ghichu"
+									rows="3" ng-model="ghichu"></textarea>
+							</div>
+						</div>
+					</form>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+					<button type="button" class="btn btn-primary"
+						ng-disabled="frmNhankhach.$invalid" ng-click="luu()">Lưu</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
